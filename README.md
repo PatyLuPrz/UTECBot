@@ -1,2 +1,10 @@
-# UTECBot
-Bot con horarios en tiempo real para los alumnos de la UTEC Tulancingo
+# Bot con Telegram y Python
+
+## Instalación de librerias requeridas
+
+pip install -r requirements.txt
+
+## Configuración
+
+token = 'TOKEN obtenido por BotFather'
+
