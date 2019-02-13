@@ -26,12 +26,20 @@ noDiaStr = time.strftime("%w")
 noDia = (int(noDiaStr))-1
 days =[ 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
 
+def mensajeDeError(user,e):
+    print "Error: {}".format(e.message)
+    print "Error: {}".format(e.args)
+    update.message.reply_text("Algo salio mal! No te preocupes, nos estamos encargando de eso. \nIntenta de nuevo más tarde")
+    update.message.reply_text("Puedes reportar este error en el siguiente correo: may.patrics@gmail.com\nNo olvides incluir tu nombre y la descripción del error")
+    
+
 
 def start(bot, update):
     username = update.message.from_user.username
     mensaje = "Hola {} bienvenidx al sistema de consulta de horario!\nUsa el comando /info para mas informacion y /help para conocer la lista de comandos".format(username)
+    nota = "NOTA: Este bot se encuentra en fase de desarrollo, es posible que algunas funciones NO esten disponibles aun :) \nDisfruta tu estancia"
     update.message.reply_text(mensaje)
-    update.message.reply_text("NOTA: Este bot se encuentra en fase de desarrollo, es posible que algun funciones NO este disponibles aun :)")
+    update.message.reply_text(nota)
 
 def echo(bot, update):
     update.message.reply_text(update.message.text)
@@ -41,11 +49,13 @@ def echo(bot, update):
     print update.message.from_user.username
 
 def help(bot,update):
-    mensaje = "Lista de comandos: \n/help - para mostrar ayuda \n/today [Grupo] - para ver tu horario del dia actual \n/day [Grupo] [NombreDelDia] - Para ver tu horario de un dia especifico \n/now [Grupo] - Para saber la clave actual y la siguiente \n/hour [Grupo] [Hora] - Para saber la clase de una hora especifia del dia actual \n/later [Grupos] [Hora] [NombreDelDia] - Para saber la clase a una hora y dia especificos"
+    mensaje = "Lista de comandos: \n/help - para mostrar ayuda \n/today [Grupo] - para ver tu horario del dia actual \n/day [Grupo] [NombreDelDia] - Para ver tu horario de un dia especifico \n/now [Grupo] - Para saber la clave actual y las siguiente"
+    # /hour [Grupo] [Hora] - Para saber la clase de una hora especifia del dia actual
+    # /later [Grupos] [Hora] [NombreDelDia] - Para saber la clase a una hora y dia especificos
     update.message.reply_text(mensaje)
  
 def info(bot,update):
-    mensaje = "Con este bot podras consultar informacion de tu horario. \n Hace falta solo que sepas tu grupo y listo. \n\n\n Consulta /help para conocer los comandos."
+    mensaje = "Con este bot podrás consultar información de tu horario. \n Hace falta solo que sepas tu grupo y listo. \n\n\n Consulta /help para conocer los comandos."
     update.message.reply_text(mensaje)
 
 # Metodos de los comandos para consultas
@@ -72,7 +82,9 @@ def searchNow(update):
         else:
             print "Send info to {}".format(username)
             print "Key serach: {}".format(dia)
-            result = db.query("SELECT profesores.NombreP, asignaturas.NombreA, horario.HoraEntradaH, horario.HoraSalidaH, horario.Salon, horario.DiaH, grupos.GrupoG FROM horario INNER JOIN asignatura_grupo ON horario.ClaveAG = asignatura_grupo.ClaveAG INNER JOIN asignatura_profesor ON asignatura_grupo.ClaveAP = asignatura_profesor.ClaveAP INNER JOIN asignaturas ON asignatura_profesor.ClaveA = asignaturas.ClaveA INNER JOIN profesores ON asignatura_profesor.ClaveP = profesores.ClaveP INNER JOIN grupos ON asignatura_grupo.ClaveG = grupos.ClaveG WHERE horario.DiaH = $dia AND grupos.ClaveG = $grupo AND (horario.HoraEntradaH BETWEEN '"+hora+"' AND '12:00:00') ORDER BY horario.HoraEntradaH ASC",vars=locals())
+            result = db.query("SELECT profesores.NombreP, asignaturas.NombreA, horario.HoraEntradaH, horario.HoraSalidaH, horario.Salon, horario.DiaH, grupos.GrupoG FROM horario INNER JOIN asignatura_grupo ON horario.ClaveAG = asignatura_grupo.ClaveAG INNER JOIN asignatura_profesor ON asignatura_grupo.ClaveAP = asignatura_profesor.ClaveAP INNER JOIN asignaturas ON asignatura_profesor.ClaveA = asignaturas.ClaveA INNER JOIN profesores ON asignatura_profesor.ClaveP = profesores.ClaveP INNER JOIN grupos ON asignatura_grupo.ClaveG = grupos.ClaveG WHERE horario.DiaH = $dia AND grupos.ClaveG = $grupo AND (horario.HoraEntradaH BETWEEN '"+hora+"' AND '07:40:00') ORDER BY horario.HoraEntradaH ASC",vars=locals())
+            if not result:
+                update.message.reply_text("Tus clases por hoy han terminado\n Prueba con /day para conocer tus clases de mañana \n o /today para ver las clases que tomaste hoy")
             list= []
             for x in result:
                 Salon=str(x['Salon'])
@@ -96,11 +108,7 @@ def searchNow(update):
                 update.message.reply_text(txt)
                 txt = ""
     except Exception as e:
-        print "Error 03: {}".format(e.message)
-        print "Error 03: {}".format(e.args)
-        update.message.reply_text("Algo salio mal! No te preocupes, nos estamos encargando de eso. \nIntenta de nuevo mas tarde")
-
-
+        mensajeDeError(username,e)
 
 def searchDay(update):
     text = update.message.text.split()
@@ -130,7 +138,8 @@ def searchDay(update):
     INNER JOIN grupos ON asignatura_grupo.ClaveG = grupos.ClaveG  \
     WHERE  \
     horario.DiaH = $dia AND  \
-    grupos.ClaveG = $grupo",vars=locals())
+    grupos.ClaveG = $grupo \
+    ORDER BY horario.HoraEntradaH ASC",vars=locals())
 
             list= []
             for x in result:
@@ -157,9 +166,7 @@ def searchDay(update):
                 update.message.reply_text(txt)
                 txt = ""
     except Exception as e:
-        print "Error 02: {}".format(e.message)
-        print "Error 02: {}".format(e.args)
-        update.message.reply_text("Algo salio mal! No te preocupes, nos estamos encargando de eso. \nIntenta de nuevo mas tarde")
+        mensajeDeError(username,e)
 
 
 def searchToday(update):
@@ -190,7 +197,8 @@ def searchToday(update):
     INNER JOIN grupos ON asignatura_grupo.ClaveG = grupos.ClaveG  \
     WHERE  \
     horario.DiaH = $dia AND  \
-    grupos.ClaveG = $grupo",vars=locals())
+    grupos.ClaveG = $grupo \
+    ORDER BY horario.HoraEntradaH ASC",vars=locals())
 
             list= []
             for x in result:
@@ -217,9 +225,7 @@ def searchToday(update):
                 update.message.reply_text(txt)
                 txt = ""
     except Exception as e:
-        print "Error 02: {}".format(e.message)
-        print "Error 02: {}".format(e.args)
-        update.message.reply_text("Algo salio mal! No te preocupes, nos estamos encargando de eso. \nIntenta de nuevo mas tarde")
+        mensajeDeError(username,e)
 
 def main():
     try:
