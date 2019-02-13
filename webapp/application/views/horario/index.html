@@ -1,0 +1,21 @@
+$def with(horario)
+<h3>
+    <a href="/horario">horario</a>
+</h3>
+<table id="datos_tabla" class="table table-hover" cellspacing="0" width="100%">
+    <thead>
+        <th>horario</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </thead>
+    <tbody>
+        $for item in horario:
+        <tr>
+            <td><a href='/horario/view/$item.ClaveH'>$item.ClaveH</a></td>
+            <td><a href='/horario/edit/$item.ClaveH'><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td><a href='/horario/delete/$item.ClaveH'><span class="glyphicon glyphicon-trash"></span></a></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<br>

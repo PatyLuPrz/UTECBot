@@ -1,0 +1,21 @@
+$def with(asignatura_profesor)
+<h3>
+    <a href="/asignatura_profesor">asignatura_profesor</a>
+</h3>
+<table id="datos_tabla" class="table table-hover" cellspacing="0" width="100%">
+    <thead>
+        <th>asignatura_profesor</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </thead>
+    <tbody>
+        $for item in asignatura_profesor:
+        <tr>
+            <td><a href='/asignatura_profesor/view/$item.ClaveAP'>$item.ClaveAP</a></td>
+            <td><a href='/asignatura_profesor/edit/$item.ClaveAP'><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td><a href='/asignatura_profesor/delete/$item.ClaveAP'><span class="glyphicon glyphicon-trash"></span></a></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<br>

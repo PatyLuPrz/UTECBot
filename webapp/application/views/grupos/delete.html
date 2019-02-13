@@ -1,0 +1,32 @@
+$def with(grupos, message)
+<h3>
+    <a href="/grupos">grupos</a>
+</h3>
+$if message != None:
+    <div class="alert alert-warning">
+        <strong>Advertencia </strong> $message
+    </div>
+<br>
+
+<form action="" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ClaveG" id="ClaveG" value="$grupos.ClaveG" />
+
+    <div class="form-group">
+    <label for="GradoG">GradoG</label>
+    <input readonly id="GradoG" type="text" class="form-control" name="GradoG" size="30" value="$grupos.GradoG"/>
+</div><div class="form-group">
+    <label for="GrupoG">GrupoG</label>
+    <input readonly id="GrupoG" type="text" class="form-control" name="GrupoG" size="30" value="$grupos.GrupoG"/>
+</div><div class="form-group">
+    <label for="CarreraG">CarreraG</label>
+    <input readonly id="CarreraG" type="text" class="form-control" name="CarreraG" size="30" value="$grupos.CarreraG"/>
+</div>
+
+    <div class="form-group">
+        <label></label>
+        <button id="send" name="send" class="form-control"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+    </div>
+</form>
+<br>
+<br>
+<br>

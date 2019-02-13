@@ -1,0 +1,5 @@
+'/asignatura_grupo', 'application.controllers.asignatura_grupo.index.Index',
+'/asignatura_grupo/view/(.+)', 'application.controllers.asignatura_grupo.view.View',
+'/asignatura_grupo/edit/(.+)', 'application.controllers.asignatura_grupo.edit.Edit',
+'/asignatura_grupo/delete/(.+)', 'application.controllers.asignatura_grupo.delete.Delete',
+'/asignatura_grupo/insert', 'application.controllers.asignatura_grupo.insert.Insert',

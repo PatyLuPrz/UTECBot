@@ -1,0 +1,26 @@
+$def with(profesores, message)
+<h3>
+    <a href="/profesores">profesores</a>
+</h3>
+$if message != None:
+    <div class="alert alert-warning">
+        <strong>Advertencia </strong> $message
+    </div>
+<br>
+
+<form action="" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ClaveP" id="ClaveP" value="$profesores.ClaveP" />
+
+    <div class="form-group">
+    <label for="NombreP">NombreP</label>
+    <input readonly id="NombreP" type="text" class="form-control" name="NombreP" size="30" value="$profesores.NombreP"/>
+</div>
+
+    <div class="form-group">
+        <label></label>
+        <button id="send" name="send" class="form-control"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+    </div>
+</form>
+<br>
+<br>
+<br>

@@ -1,0 +1,38 @@
+$def with(horario, message)
+<h3>
+    <a href="/horario">horario</a>
+</h3>
+$if message != None:
+    <div class="alert alert-warning">
+        <strong>Advertencia </strong> $message
+    </div>
+<br>
+
+<form action="" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ClaveH" id="ClaveH" value="$horario.ClaveH" />
+
+    <div class="form-group">
+    <label for="ClaveAG">ClaveAG</label>
+    <input readonly id="ClaveAG" type="text" class="form-control" name="ClaveAG" size="30" value="$horario.ClaveAG"/>
+</div><div class="form-group">
+    <label for="DiaH">DiaH</label>
+    <input readonly id="DiaH" type="text" class="form-control" name="DiaH" size="30" value="$horario.DiaH"/>
+</div><div class="form-group">
+    <label for="HoraEntradaH">HoraEntradaH</label>
+    <input readonly id="HoraEntradaH" type="text" class="form-control" name="HoraEntradaH" size="30" value="$horario.HoraEntradaH"/>
+</div><div class="form-group">
+    <label for="HoraSalidaH">HoraSalidaH</label>
+    <input readonly id="HoraSalidaH" type="text" class="form-control" name="HoraSalidaH" size="30" value="$horario.HoraSalidaH"/>
+</div><div class="form-group">
+    <label for="Salon">Salon</label>
+    <input readonly id="Salon" type="text" class="form-control" name="Salon" size="30" value="$horario.Salon"/>
+</div>
+
+    <div class="form-group">
+        <label></label>
+        <button id="send" name="send" class="form-control"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+    </div>
+</form>
+<br>
+<br>
+<br>

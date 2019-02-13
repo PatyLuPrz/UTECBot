@@ -1,0 +1,25 @@
+$def with(asignaturas, message)
+<h3>
+    <a href="/asignaturas">asignaturas</a>
+</h3>
+$if message != None:
+    <div class="alert alert-warning">
+        <strong>Advertencia </strong> $message
+    </div>
+    <br>
+<form action="" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ClaveA" id="ClaveA" value="$asignaturas.ClaveA" />
+
+    <div class="form-group">
+    <label for="NombreA">NombreA</label>
+    <input required id="NombreA" type="text" class="form-control" name="NombreA" size="30" value="$asignaturas.NombreA"/>
+</div>
+
+    <div class="form-group">
+        <label></label>
+        <button id="send" name="send" class="form-control"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+    </div>
+</form>
+<br>
+<br>
+<br>

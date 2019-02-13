@@ -1,0 +1,5 @@
+'/asignaturas', 'application.controllers.asignaturas.index.Index',
+'/asignaturas/view/(.+)', 'application.controllers.asignaturas.view.View',
+'/asignaturas/edit/(.+)', 'application.controllers.asignaturas.edit.Edit',
+'/asignaturas/delete/(.+)', 'application.controllers.asignaturas.delete.Delete',
+'/asignaturas/insert', 'application.controllers.asignaturas.insert.Insert',

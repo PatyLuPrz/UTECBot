@@ -1,0 +1,5 @@
+'/profesores', 'application.controllers.profesores.index.Index',
+'/profesores/view/(.+)', 'application.controllers.profesores.view.View',
+'/profesores/edit/(.+)', 'application.controllers.profesores.edit.Edit',
+'/profesores/delete/(.+)', 'application.controllers.profesores.delete.Delete',
+'/profesores/insert', 'application.controllers.profesores.insert.Insert',

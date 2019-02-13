@@ -1,0 +1,5 @@
+'/horario', 'application.controllers.horario.index.Index',
+'/horario/view/(.+)', 'application.controllers.horario.view.View',
+'/horario/edit/(.+)', 'application.controllers.horario.edit.Edit',
+'/horario/delete/(.+)', 'application.controllers.horario.delete.Delete',
+'/horario/insert', 'application.controllers.horario.insert.Insert',
