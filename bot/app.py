@@ -17,7 +17,7 @@ db = web.database(
     port = 3306
 )
 
-token = '766673645:AAGYPByT-_IEoyERPE6YINW0oGwTK8FyhJY'
+token = ''
 
 
 hora = time.strftime("%I:%M:%S")
